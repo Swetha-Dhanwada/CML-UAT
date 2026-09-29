@@ -2,16 +2,15 @@
 /**
  * Daily refresh pipeline for the CML Rule Explorer (CML-UAT repo):
  *   1. Resolve the active ExpressionSetDefinitionVersion for the
- *      LiveRampConstraints Expression Set in UAT1.
- *   2. Pull its raw CML (ConstraintModel) text via the REST API and save it
- *      to docs/LiveRampConstraints_<YYYY-MM-DD>.txt (one dated snapshot per
- *      day — diffable source-of-truth history).
- *   3. Re-parse it into docs/cml_data.json (see scripts/cml-parse.js).
- *   4. Re-embed that data into docs/CML_Rule_Explorer.html, updating the
- *      header subtitle (type/condition counts + source/date).
- *   5. Commit any changes to a fresh branch `refresh/<YYYY-MM-DD>` (cut from
- *      main) and push that branch to origin — one branch per day, main is
- *      never auto-merged.
+ *      LiveRampConstraints Expression Set in UAT1 and pull its raw CML
+ *      (ConstraintModel) text via the REST API.
+ *   2. Compare it to docs/LiveRampConstraints.txt as currently committed on
+ *      main. If identical, stop — nothing to do today.
+ *   3. If different: create branch `CML_<YYYY-MM-DD>` off main, overwrite
+ *      docs/LiveRampConstraints.txt, re-parse into docs/cml_data.json,
+ *      re-embed into docs/CML_Rule_Explorer.html (header subtitle +
+ *      DATA array), refresh the stats block in docs/CML_MEMORY.md, commit,
+ *      and push that branch to origin. main is never auto-merged.
  *
  * Usage: node scripts/cml-daily-refresh.js
  * Requires: `sf` CLI authenticated against the UAT1 org alias, and a git
@@ -26,6 +25,7 @@ const ORG_ALIAS = 'UAT1';
 const EXPRESSION_SET_NAME = 'LiveRampConstraints';
 const REPO_ROOT = path.resolve(__dirname, '..');
 const DOCS_DIR = path.join(REPO_ROOT, 'docs');
+const RAW_CML_TXT = path.join(DOCS_DIR, 'LiveRampConstraints.txt');
 const CML_DATA_JSON = path.join(DOCS_DIR, 'cml_data.json');
 const EXPLORER_HTML = path.join(DOCS_DIR, 'CML_Rule_Explorer.html');
 const CATEGORY_MAP_JSON = path.join(DOCS_DIR, 'category_map.json');
@@ -119,38 +119,24 @@ function updateMemoryStats(types, today, raw) {
   fs.writeFileSync(MEMORY_MD, md);
 }
 
-function commitAndPush(today) {
-  const branch = `refresh/${today}`;
-
+function main() {
   git(['checkout', 'main']);
   git(['pull', 'origin', 'main']);
-  git(['checkout', '-B', branch]);
 
-  git(['add', 'docs']);
-  let staged = '';
-  try {
-    staged = git(['diff', '--cached', '--name-only']);
-  } catch (e) {
-    staged = '';
-  }
-  if (!staged.trim()) {
-    console.log('No changes to commit — UAT1 CML is unchanged since last refresh.');
-    git(['checkout', 'main']);
-    git(['branch', '-D', branch]);
-    return;
-  }
-  git(['commit', '-m', `Daily CML refresh from ${ORG_ALIAS} (${today})`]);
-  git(['push', '-f', 'origin', `${branch}:${branch}`]);
-  git(['checkout', 'main']);
-  console.log(`Committed and pushed today's refresh to branch '${branch}'.`);
-}
-
-function main() {
   console.log(`Fetching CML for '${EXPRESSION_SET_NAME}' from ${ORG_ALIAS}...`);
   const raw = fetchRawCml();
+  const previous = fs.existsSync(RAW_CML_TXT) ? fs.readFileSync(RAW_CML_TXT, 'utf8') : null;
+
+  if (previous === raw) {
+    console.log('No change in LiveRampConstraints.txt since last check — nothing to do.');
+    return;
+  }
+
   const today = new Date().toISOString().slice(0, 10);
-  const rawCmlPath = path.join(DOCS_DIR, `LiveRampConstraints_${today}.txt`);
-  fs.writeFileSync(rawCmlPath, raw);
+  const branch = `CML_${today}`;
+  git(['checkout', '-B', branch]);
+
+  fs.writeFileSync(RAW_CML_TXT, raw);
 
   const types = parseCml(raw);
   let categoryMap = {};
@@ -164,9 +150,13 @@ function main() {
   updateMemoryStats(types, today, raw);
 
   const totalConditions = types.reduce((s, t) => s + t.count, 0);
-  console.log(`Updated ${CML_DATA_JSON} and ${EXPLORER_HTML}: ${types.length} types, ${totalConditions} conditions.`);
+  console.log(`Change detected. Updated ${CML_DATA_JSON} and ${EXPLORER_HTML}: ${types.length} types, ${totalConditions} conditions.`);
 
-  commitAndPush(today);
+  git(['add', 'docs']);
+  git(['commit', '-m', `CML change detected in ${ORG_ALIAS} (${today})`]);
+  git(['push', '-f', 'origin', `${branch}:${branch}`]);
+  git(['checkout', 'main']);
+  console.log(`Committed and pushed to branch '${branch}'.`);
 }
 
 main();
