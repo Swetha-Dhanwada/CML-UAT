@@ -1,0 +1,172 @@
+#!/usr/bin/env node
+/**
+ * Daily refresh pipeline for the CML Rule Explorer (CML-UAT repo):
+ *   1. Resolve the active ExpressionSetDefinitionVersion for the
+ *      LiveRampConstraints Expression Set in UAT1.
+ *   2. Pull its raw CML (ConstraintModel) text via the REST API and save it
+ *      to docs/LiveRampConstraints_<YYYY-MM-DD>.txt (one dated snapshot per
+ *      day — diffable source-of-truth history).
+ *   3. Re-parse it into docs/cml_data.json (see scripts/cml-parse.js).
+ *   4. Re-embed that data into docs/CML_Rule_Explorer.html, updating the
+ *      header subtitle (type/condition counts + source/date).
+ *   5. Commit any changes to a fresh branch `refresh/<YYYY-MM-DD>` (cut from
+ *      main) and push that branch to origin — one branch per day, main is
+ *      never auto-merged.
+ *
+ * Usage: node scripts/cml-daily-refresh.js
+ * Requires: `sf` CLI authenticated against the UAT1 org alias, and a git
+ * remote ("origin") this account can push to without a credential prompt.
+ */
+const fs = require('fs');
+const path = require('path');
+const { execFileSync } = require('child_process');
+const { parseCml } = require('./cml-parse');
+
+const ORG_ALIAS = 'UAT1';
+const EXPRESSION_SET_NAME = 'LiveRampConstraints';
+const REPO_ROOT = path.resolve(__dirname, '..');
+const DOCS_DIR = path.join(REPO_ROOT, 'docs');
+const CML_DATA_JSON = path.join(DOCS_DIR, 'cml_data.json');
+const EXPLORER_HTML = path.join(DOCS_DIR, 'CML_Rule_Explorer.html');
+const CATEGORY_MAP_JSON = path.join(DOCS_DIR, 'category_map.json');
+const MEMORY_MD = path.join(DOCS_DIR, 'CML_MEMORY.md');
+
+const SF_BIN = process.platform === 'win32' ? 'sf.cmd' : 'sf';
+const GIT_BIN = process.platform === 'win32' ? 'git.exe' : 'git';
+const IS_WIN = process.platform === 'win32';
+
+function winQuote(arg) {
+  if (!/[ "&|<>^]/.test(arg)) return arg;
+  return `"${arg.replace(/"/g, '""')}"`;
+}
+
+function run(bin, args) {
+  const finalArgs = IS_WIN ? args.map(winQuote) : args;
+  return execFileSync(bin, finalArgs, {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024 * 50,
+    shell: IS_WIN,
+    cwd: REPO_ROOT,
+  });
+}
+
+function sf(args) {
+  return run(SF_BIN, args);
+}
+
+function git(args) {
+  return run(GIT_BIN, args);
+}
+
+function sfJson(args) {
+  return JSON.parse(sf(args));
+}
+
+function fetchRawCml() {
+  const esRes = sfJson([
+    'data', 'query', '-o', ORG_ALIAS, '--json', '-q',
+    `SELECT Id, ExpressionSetDefinitionId FROM ExpressionSet WHERE Name='${EXPRESSION_SET_NAME}'`,
+  ]);
+  const es = esRes.result.records[0];
+  if (!es) throw new Error(`ExpressionSet '${EXPRESSION_SET_NAME}' not found in ${ORG_ALIAS}`);
+
+  const versionRes = sfJson([
+    'data', 'query', '-o', ORG_ALIAS, '--json', '-q',
+    `SELECT Id FROM ExpressionSetDefinitionVersion WHERE ExpressionSetDefinitionId='${es.ExpressionSetDefinitionId}' AND Status='Active'`,
+  ]);
+  const version = versionRes.result.records[0];
+  if (!version) throw new Error(`No Active ExpressionSetDefinitionVersion for ${EXPRESSION_SET_NAME}`);
+
+  const tmpFile = path.join(REPO_ROOT, '.cml-raw.tmp.txt');
+  sf([
+    'api', 'request', 'rest',
+    `/services/data/v68.0/sobjects/ExpressionSetDefinitionVersion/${version.Id}/ConstraintModel`,
+    '-o', ORG_ALIAS, '--stream-to-file', tmpFile,
+  ]);
+  const raw = fs.readFileSync(tmpFile, 'utf8');
+  fs.unlinkSync(tmpFile);
+  return raw;
+}
+
+function updateExplorerHtml(types, today) {
+  let html = fs.readFileSync(EXPLORER_HTML, 'utf8');
+  const totalConditions = types.reduce((s, t) => s + t.count, 0);
+
+  html = html.replace(
+    /<div class="sub">.*?<\/div>/s,
+    `<div class="sub">${types.length} product types &middot; ${totalConditions} extracted conditions (message / require / preference / rule / constraint) &middot; Source: ${ORG_ALIAS} ExpressionSet '${EXPRESSION_SET_NAME}' (refreshed ${today})</div>`
+  );
+  html = html.replace(
+    /const DATA = \[.*?\];\s*\n/s,
+    `const DATA = ${JSON.stringify(types)};\n`
+  );
+  fs.writeFileSync(EXPLORER_HTML, html);
+}
+
+function updateMemoryStats(types, today, raw) {
+  if (!fs.existsSync(MEMORY_MD)) return;
+  let md = fs.readFileSync(MEMORY_MD, 'utf8');
+  const totalConditions = types.reduce((s, t) => s + t.count, 0);
+  const lines = raw.split('\n').length;
+
+  md = md.replace(/\*\*Backup Date:\*\* .*/, `**Backup Date:** ${today} (auto-refreshed from ${ORG_ALIAS})`);
+  md = md.replace(/- \*\*Total Lines:\*\* [\d,]+/, `- **Total Lines:** ${lines.toLocaleString()}`);
+  md = md.replace(/- \*\*Product Types \(type blocks parsed\):\*\* \d+/, `- **Product Types (type blocks parsed):** ${types.length}`);
+  md = md.replace(
+    /- \*\*Total Conditions \(message\/require\/preference\/rule\/constraint\):\*\* [\d,]+/,
+    `- **Total Conditions (message/require/preference/rule/constraint):** ${totalConditions.toLocaleString()}`
+  );
+  fs.writeFileSync(MEMORY_MD, md);
+}
+
+function commitAndPush(today) {
+  const branch = `refresh/${today}`;
+
+  git(['checkout', 'main']);
+  git(['pull', 'origin', 'main']);
+  git(['checkout', '-B', branch]);
+
+  git(['add', 'docs']);
+  let staged = '';
+  try {
+    staged = git(['diff', '--cached', '--name-only']);
+  } catch (e) {
+    staged = '';
+  }
+  if (!staged.trim()) {
+    console.log('No changes to commit — UAT1 CML is unchanged since last refresh.');
+    git(['checkout', 'main']);
+    git(['branch', '-D', branch]);
+    return;
+  }
+  git(['commit', '-m', `Daily CML refresh from ${ORG_ALIAS} (${today})`]);
+  git(['push', '-f', 'origin', `${branch}:${branch}`]);
+  git(['checkout', 'main']);
+  console.log(`Committed and pushed today's refresh to branch '${branch}'.`);
+}
+
+function main() {
+  console.log(`Fetching CML for '${EXPRESSION_SET_NAME}' from ${ORG_ALIAS}...`);
+  const raw = fetchRawCml();
+  const today = new Date().toISOString().slice(0, 10);
+  const rawCmlPath = path.join(DOCS_DIR, `LiveRampConstraints_${today}.txt`);
+  fs.writeFileSync(rawCmlPath, raw);
+
+  const types = parseCml(raw);
+  let categoryMap = {};
+  if (fs.existsSync(CATEGORY_MAP_JSON)) {
+    categoryMap = JSON.parse(fs.readFileSync(CATEGORY_MAP_JSON, 'utf8'));
+  }
+  types.forEach((t) => { t.category = categoryMap[t.name] || 'Other'; });
+
+  fs.writeFileSync(CML_DATA_JSON, JSON.stringify(types, null, 1));
+  updateExplorerHtml(types, today);
+  updateMemoryStats(types, today, raw);
+
+  const totalConditions = types.reduce((s, t) => s + t.count, 0);
+  console.log(`Updated ${CML_DATA_JSON} and ${EXPLORER_HTML}: ${types.length} types, ${totalConditions} conditions.`);
+
+  commitAndPush(today);
+}
+
+main();
