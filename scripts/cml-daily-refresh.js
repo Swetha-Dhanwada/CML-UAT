@@ -6,11 +6,12 @@
  *      (ConstraintModel) text via the REST API.
  *   2. Compare it to docs/LiveRampConstraints.txt as currently committed on
  *      main. If identical, stop — nothing to do today.
- *   3. If different: create branch `CML_<YYYY-MM-DD>` off main, overwrite
- *      docs/LiveRampConstraints.txt, re-parse into docs/cml_data.json,
- *      re-embed into docs/CML_Rule_Explorer.html (header subtitle +
- *      DATA array), refresh the stats block in docs/CML_MEMORY.md, commit,
- *      and push that branch to origin. main is never auto-merged.
+ *   3. If different: overwrite docs/LiveRampConstraints.txt in place,
+ *      re-parse into docs/cml_data.json, re-embed into
+ *      docs/CML_Rule_Explorer.html (header subtitle + DATA array), refresh
+ *      the stats block in docs/CML_MEMORY.md, and commit straight to main
+ *      with a timestamped message describing what changed (types/conditions
+ *      added, removed, or changed) — no per-day branches.
  *
  * Usage: node scripts/cml-daily-refresh.js
  * Requires: `sf` CLI authenticated against the UAT1 org alias, and a git
@@ -119,6 +120,34 @@ function updateMemoryStats(types, today, raw) {
   fs.writeFileSync(MEMORY_MD, md);
 }
 
+// Summarizes what actually changed between the previous and new parsed type
+// lists, for a human-readable commit message (added/removed types, per-type
+// condition-count deltas, and the net condition-count change).
+function describeChanges(oldTypes, newTypes) {
+  const oldByName = new Map(oldTypes.map((t) => [t.name, t]));
+  const newByName = new Map(newTypes.map((t) => [t.name, t]));
+
+  const added = [...newByName.keys()].filter((n) => !oldByName.has(n));
+  const removed = [...oldByName.keys()].filter((n) => !newByName.has(n));
+  const changed = [...newByName.keys()]
+    .filter((n) => oldByName.has(n) && oldByName.get(n).count !== newByName.get(n).count)
+    .map((n) => ({ name: n, delta: newByName.get(n).count - oldByName.get(n).count }));
+
+  const oldTotal = oldTypes.reduce((s, t) => s + t.count, 0);
+  const newTotal = newTypes.reduce((s, t) => s + t.count, 0);
+  const conditionDelta = newTotal - oldTotal;
+
+  const parts = [];
+  parts.push(`${oldTypes.length} -> ${newTypes.length} types, ${oldTotal} -> ${newTotal} conditions (${conditionDelta >= 0 ? '+' : ''}${conditionDelta})`);
+  if (added.length) parts.push(`added: ${added.slice(0, 5).join(', ')}${added.length > 5 ? `, +${added.length - 5} more` : ''}`);
+  if (removed.length) parts.push(`removed: ${removed.slice(0, 5).join(', ')}${removed.length > 5 ? `, +${removed.length - 5} more` : ''}`);
+  if (changed.length) {
+    const list = changed.slice(0, 5).map((c) => `${c.name} (${c.delta >= 0 ? '+' : ''}${c.delta})`).join(', ');
+    parts.push(`changed: ${list}${changed.length > 5 ? `, +${changed.length - 5} more` : ''}`);
+  }
+  return parts.join('; ');
+}
+
 function main() {
   git(['checkout', 'main']);
   git(['pull', 'origin', 'main']);
@@ -137,9 +166,7 @@ function main() {
     return;
   }
 
-  const today = new Date().toISOString().slice(0, 10);
-  const branch = `CML_${today}`;
-  git(['checkout', '-B', branch]);
+  const oldTypes = previous !== null ? parseCml(previous) : [];
 
   fs.writeFileSync(RAW_CML_TXT, raw);
 
@@ -150,18 +177,19 @@ function main() {
   }
   types.forEach((t) => { t.category = categoryMap[t.name] || 'Other'; });
 
+  const today = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(CML_DATA_JSON, JSON.stringify(types, null, 1));
   updateExplorerHtml(types, today);
   updateMemoryStats(types, today, raw);
 
-  const totalConditions = types.reduce((s, t) => s + t.count, 0);
-  console.log(`Change detected. Updated ${CML_DATA_JSON} and ${EXPLORER_HTML}: ${types.length} types, ${totalConditions} conditions.`);
+  const description = describeChanges(oldTypes, types);
+  console.log(`Change detected: ${description}`);
 
+  const timestamp = new Date().toISOString();
   git(['add', 'docs']);
-  git(['commit', '-m', `CML change detected in ${ORG_ALIAS} (${today})`]);
-  git(['push', '-f', 'origin', `${branch}:${branch}`]);
-  git(['checkout', 'main']);
-  console.log(`Committed and pushed to branch '${branch}'.`);
+  git(['commit', '-m', `CML update ${timestamp}: ${description}`]);
+  git(['push', 'origin', 'main']);
+  console.log('Committed and pushed to main.');
 }
 
 main();
