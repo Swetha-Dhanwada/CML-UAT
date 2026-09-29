@@ -9,7 +9,9 @@
  *   3. Re-parse it into docs/cml_data.json (see scripts/cml-parse.js).
  *   4. Re-embed that data into docs/CML_Rule_Explorer.html, updating the
  *      header subtitle (type/condition counts + source/date).
- *   5. git add / commit / push any changes to origin/main.
+ *   5. Commit any changes to a fresh branch `refresh/<YYYY-MM-DD>` (cut from
+ *      main) and push that branch to origin — one branch per day, main is
+ *      never auto-merged.
  *
  * Usage: node scripts/cml-daily-refresh.js
  * Requires: `sf` CLI authenticated against the UAT1 org alias, and a git
@@ -118,6 +120,12 @@ function updateMemoryStats(types, today, raw) {
 }
 
 function commitAndPush(today) {
+  const branch = `refresh/${today}`;
+
+  git(['checkout', 'main']);
+  git(['pull', 'origin', 'main']);
+  git(['checkout', '-B', branch]);
+
   git(['add', 'docs']);
   let staged = '';
   try {
@@ -127,11 +135,14 @@ function commitAndPush(today) {
   }
   if (!staged.trim()) {
     console.log('No changes to commit — UAT1 CML is unchanged since last refresh.');
+    git(['checkout', 'main']);
+    git(['branch', '-D', branch]);
     return;
   }
   git(['commit', '-m', `Daily CML refresh from ${ORG_ALIAS} (${today})`]);
-  git(['push', 'origin', 'HEAD']);
-  console.log('Committed and pushed changes to origin.');
+  git(['push', '-f', 'origin', `${branch}:${branch}`]);
+  git(['checkout', 'main']);
+  console.log(`Committed and pushed today's refresh to branch '${branch}'.`);
 }
 
 function main() {
