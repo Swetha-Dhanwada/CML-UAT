@@ -127,7 +127,12 @@ function main() {
   const raw = fetchRawCml();
   const previous = fs.existsSync(RAW_CML_TXT) ? fs.readFileSync(RAW_CML_TXT, 'utf8') : null;
 
-  if (previous === raw) {
+  // Compare with line endings normalized: git's core.autocrlf can check
+  // LiveRampConstraints.txt out with CRLF on Windows while the freshly
+  // fetched REST response always comes back LF-only, which would otherwise
+  // register as a "change" every single day even when UAT1 CML is untouched.
+  const normalize = (s) => (s === null ? null : s.replace(/\r\n/g, '\n'));
+  if (normalize(previous) === normalize(raw)) {
     console.log('No change in LiveRampConstraints.txt since last check — nothing to do.');
     return;
   }
