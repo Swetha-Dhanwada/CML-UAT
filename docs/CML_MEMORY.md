@@ -1,6 +1,6 @@
 # UAT1 CalcProcedureDefinition (CML) - LiveRamp Quote Pricing System
 
-**Backup Date:** 2026-09-30 (auto-refreshed from UAT1)
+**Backup Date:** September 29, 2026  
 **Expression Set Name:** CalcProcedureDefinition (Quote Pricing Configuration)  
 **System:** LiveRamp Quote-to-Cash
 
@@ -112,7 +112,7 @@ For the exact per-type breakdown, use `CML_Rule_Explorer.html` (below) instead o
 
 ## CML Rule Explorer (searchable artifact)
 
-`docs/CML/CML_Rule_Explorer.html` is a self-contained, filterable HTML explorer generated from the full CML source (`ExpressionSets Backup/UAT1-CML-29SepBKP.txt`). Open it directly in a browser — no server needed.
+`docs/CML/CML_Rule_Explorer.html` is a self-contained, filterable HTML explorer generated from the full CML source. Open it directly in a browser — no server needed. Styled with the same light theme (off-white page, white cards, blue/red/amber/green accents) as the RCA Attribute-Based Product Catalog artifact for a consistent look and feel across CML docs.
 
 - **Search** across condition text and product/type names (e.g. `"Revenue Share"`, `"CRM-43819"`, `"Publicis"`)
 - **Category filter**: Activation, Measurement, Clean Room, Identity Services, Conversion APIs, Services, Analytics & Data, Connections/Destinations, Core/Bundle, Other
