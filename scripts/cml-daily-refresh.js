@@ -121,8 +121,8 @@ function updateMemoryStats(types, today, raw) {
 }
 
 // Summarizes what actually changed between the previous and new parsed type
-// lists, for a human-readable commit message (added/removed types, per-type
-// condition-count deltas, and the net condition-count change).
+// lists, for a human-readable commit message (added/removed types and
+// per-type condition-count deltas).
 function describeChanges(oldTypes, newTypes) {
   const oldByName = new Map(oldTypes.map((t) => [t.name, t]));
   const newByName = new Map(newTypes.map((t) => [t.name, t]));
@@ -133,12 +133,7 @@ function describeChanges(oldTypes, newTypes) {
     .filter((n) => oldByName.has(n) && oldByName.get(n).count !== newByName.get(n).count)
     .map((n) => ({ name: n, delta: newByName.get(n).count - oldByName.get(n).count }));
 
-  const oldTotal = oldTypes.reduce((s, t) => s + t.count, 0);
-  const newTotal = newTypes.reduce((s, t) => s + t.count, 0);
-  const conditionDelta = newTotal - oldTotal;
-
   const parts = [];
-  parts.push(`${oldTypes.length} -> ${newTypes.length} types, ${oldTotal} -> ${newTotal} conditions (${conditionDelta >= 0 ? '+' : ''}${conditionDelta})`);
   if (added.length) parts.push(`added: ${added.slice(0, 5).join(', ')}${added.length > 5 ? `, +${added.length - 5} more` : ''}`);
   if (removed.length) parts.push(`removed: ${removed.slice(0, 5).join(', ')}${removed.length > 5 ? `, +${removed.length - 5} more` : ''}`);
   if (changed.length) {
@@ -185,9 +180,8 @@ function main() {
   const description = describeChanges(oldTypes, types);
   console.log(`Change detected: ${description}`);
 
-  const timestamp = new Date().toISOString();
   git(['add', 'docs']);
-  git(['commit', '-m', `CML update ${timestamp}: ${description}`]);
+  git(['commit', '-m', `CML update: ${description}`]);
   git(['push', 'origin', 'main']);
   console.log('Committed and pushed to main.');
 }
