@@ -204,7 +204,7 @@
    },
    {
     "kind": "require",
-    "code": "//CRM-44420 added Quantity_Override__c == false condition for included destination require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);"
    },
    {
     "kind": "require",
