@@ -25,3 +25,30 @@ To run manually:
 ```
 node scripts/cml-daily-refresh.js
 ```
+
+Steps to Run the script:
+Clone the repo anywhere (no fixed location required now):
+
+git clone https://github.com/Swetha-Dhanwada/CML-UAT.git C:\wherever\you\want\CML-UAT
+
+2. Install prerequisites on that machine:
+
+Node.js (for node scripts\cml-daily-refresh.js)
+Salesforce CLI (sf), authenticated against the UAT1 org alias — run sf org login web -a UAT1 (or sf org login jwt for unattended auth) so sf commands succeed non-interactively
+Git configured with push access to origin (SSH key or stored credential) so the script's git push origin main doesn't prompt for credentials
+
+3. Run it manually first to confirm it works:
+
+cd C:\wherever\you\want\CML-UAT
+.\scripts\cml-daily-refresh.ps1
+
+It'll write a log to <repo>\logs\cml-refresh-<timestamp>.log and only commit/push if the CML actually changed.
+
+4. Register the Windows Scheduled Task pointing at the new location:
+
+$action = New-ScheduledTaskAction -Execute "powershell.exe" `
+  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"C:\wherever\you\want\CML-UAT\scripts\cml-daily-refresh.ps1`""
+$trigger = New-ScheduledTaskTrigger -Daily -At 6am
+Register-ScheduledTask -TaskName "CML Rule Explorer Daily Refresh" -Action $action -Trigger $trigger
+
+Since the script now derives its root from its own location ($PSScriptRoot), you don't need to edit the script at all when moving machines — just point the scheduled task's -File argument at wherever you cloned the repo on that machine.
