@@ -1,6 +1,6 @@
 # UAT1 CalcProcedureDefinition (CML) - LiveRamp Quote Pricing System
 
-**Backup Date:** September 29, 2026  
+**Backup Date:** 2026-10-01 (auto-refreshed from UAT1)
 **Expression Set Name:** CalcProcedureDefinition (Quote Pricing Configuration)  
 **System:** LiveRamp Quote-to-Cash
 
@@ -101,9 +101,9 @@ Clean Room Publicis Funded must be standalone-only (cannot combine with other pr
 
 ## File Statistics
 
-- **Total Lines:** 7,153
-- **Product Types (type blocks parsed):** 163
-- **Total Conditions (message/require/preference/rule/constraint):** 2,110
+- **Total Lines:** 6,921
+- **Product Types (type blocks parsed):** 162
+- **Total Conditions (message/require/preference/rule/constraint):** 2,012
 - **Asset Relations:** 30+ (for dependency checks)
 
 For the exact per-type breakdown, use `CML_Rule_Explorer.html` (below) instead of these rounded figures.

@@ -6104,7 +6104,7 @@ type CustomPartnerAttributionReports : QuantityLineItem {
 
 }
 
-/*@(peelable = true)
+@(peelable = true)
 type ConversionsAPIPartnerIntegration : LineItem {
     //CRM-43881
 
@@ -6114,8 +6114,8 @@ type ConversionsAPIPartnerIntegration : LineItem {
     @(defaultValue = "0.00", peelable = true)
     decimal(2) Custom_Price = [0..999999999999999];
 
-    @(defaultValue = "% Media %")
-    string RevShare1;
+    @(defaultValue = "0.00", peelable = true)
+    decimal(2) Percentage_of_Media;
 
     @(relatedAttributes = "Custom_Price")
     int qty = this.quantity;
@@ -6123,260 +6123,28 @@ type ConversionsAPIPartnerIntegration : LineItem {
     @(defaultValue = "None", peelable = true)
     string Minimum_Commit_True_Up_Frequency = ["None", "Monthly", "Quarterly", "Annual"];
 
-    @(relatedAttributes = "RevShare1, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency,Custom_Price")
+    @(relatedAttributes = "Percentage_of_Media, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency,Custom_Price")
     string UnitOfMeasure = ["None","Each", "% of Media"];
 
     @(relatedAttributes = "Custom_Price")
     string RevenueType = ["Fixed", "One-Time", "Variable"];
     
-    preference(UnitOfMeasure == "Each" && RevenueType == "Fixed" && qty == 1 -> Custom_Price == 10000);
-
-    preference(UnitOfMeasure == "Each" && qty == 2 -> Custom_Price == 10000);
-
-    preference(UnitOfMeasure == "Each" && RevenueType == "Fixed" && qty == 3 -> Custom_Price == 15000);
-
-    preference(UnitOfMeasure == "Each" && qty == 4 -> Custom_Price == 20000);
-
-    preference(UnitOfMeasure == "Each" && qty == 5 -> Custom_Price == 25000);
-
-    preference(UnitOfMeasure == "Each" && qty == 6 -> Custom_Price == 30000);
-
-    preference(UnitOfMeasure == "Each" && qty == 7 -> Custom_Price == 35000);
-
-    preference(UnitOfMeasure == "Each" && qty == 8 -> Custom_Price == 40000);
-
-    preference(UnitOfMeasure == "Each" && qty == 9 -> Custom_Price == 45000);
-
-    preference(UnitOfMeasure == "Each" && qty == 10 -> Custom_Price == 50000);
-
-    preference(UnitOfMeasure == "Each" && qty == 11 -> Custom_Price == 54000);
-
-    preference(UnitOfMeasure == "Each" && qty == 12 -> Custom_Price == 58000);
-
-    preference(UnitOfMeasure == "Each" && qty == 13 -> Custom_Price == 62000);
-
-    preference(UnitOfMeasure == "Each" && qty == 14 -> Custom_Price == 66000);
-
-    preference(UnitOfMeasure == "Each" && qty == 15 -> Custom_Price == 70000);
-
-    preference(UnitOfMeasure == "Each" && qty == 16 -> Custom_Price == 74000);
-
-    preference(UnitOfMeasure == "Each" && qty == 17 -> Custom_Price == 78000);
-
-    preference(UnitOfMeasure == "Each" && qty == 18 -> Custom_Price == 82000);
-
-    preference(UnitOfMeasure == "Each" && qty == 19 -> Custom_Price == 86000);
-
-    preference(UnitOfMeasure == "Each" && qty == 20 -> Custom_Price == 90000);
-
-    preference(UnitOfMeasure == "Each" && qty == 21 -> Custom_Price == 93000);
-
-    preference(UnitOfMeasure == "Each" && qty == 22 -> Custom_Price == 96000);
-
-    preference(UnitOfMeasure == "Each" && qty == 23 -> Custom_Price == 99000);
-
-    preference(UnitOfMeasure == "Each" && qty == 24 -> Custom_Price == 102000);
-
-    preference(UnitOfMeasure == "Each" && qty == 25 -> Custom_Price == 105000);
-
-    preference(UnitOfMeasure == "Each" && qty == 26 -> Custom_Price == 108000);
-
-    preference(UnitOfMeasure == "Each" && qty == 27 -> Custom_Price == 111000);
-
-    preference(UnitOfMeasure == "Each" && qty == 28 -> Custom_Price == 114000);
-
-    preference(UnitOfMeasure == "Each" && qty == 29 -> Custom_Price == 117000);
-
-    preference(UnitOfMeasure == "Each" && qty == 30 -> Custom_Price == 120000);
-
-    rule(UnitOfMeasure != "Each" || RevenueType == "Variable", "hide", "attribute", "Custom_Price");
-
-    rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Minimum_Commit_True_Up_Frequency");
-
-    rule(UnitOfMeasure != "% of Media", "hide", "attribute", "RevShare1");
     
-    preference(RevenueType == "Variable" -> Custom_Price == 0);
-    rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Monthly_Minimum1");
-    message(RevenueType == "Fixed" && Custom_Price == 0 && UnitOfMeasure == "Each", "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
-    preference(UnitOfMeasure != "% of Media" || RevenueType == "Variable" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
-
-   // preference(UnitOfMeasure != "Each" || RevenueType == "Variable" -> Custom_Price == 0);
-   //rule(RevenueType == "Variable" || UnitOfMeasure == "% of Media", "hide", "attribute", "Custom_Price");  
-    // Quantity-based price defaults — only for Each + Fixed
-    // All preferences now consistently require both UnitOfMeasure == "Each" AND RevenueType == "Fixed"
-    
-}*/
-@(peelable = true)
-
-type ConversionsAPIPartnerIntegration : LineItem {
-
-  //CRM-43881
-
-  @(defaultValue = "0.00", peelable = true)
-
-  decimal(2) Monthly_Minimum1;
-
-  @(defaultValue = "0.00", peelable = true)
-
-  decimal(2) Custom_Price = [0..999999999999999];
-
-  @(defaultValue = "% Media %")
-
-  string RevShare1;
-
-  @(relatedAttributes = "Custom_Price")
-
-  int qty = this.quantity;
-
-  @(defaultValue = "None", peelable = true)
-
-  string Minimum_Commit_True_Up_Frequency = ["None", "Monthly", "Quarterly", "Annual"];
-
-  @(relatedAttributes = "RevShare1, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency, Custom_Price")
-
-  string UnitOfMeasure = ["None","Each", "% of Media"];
-
-  @(relatedAttributes = "Custom_Price")
-
-  string RevenueType = ["Fixed", "One-Time", "Variable"];
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 1 -> Custom_Price == 10000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 1 -> Custom_Price == 10000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 2 -> Custom_Price == 10000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 2 -> Custom_Price == 10000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 3 -> Custom_Price == 15000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 3 -> Custom_Price == 15000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 4 -> Custom_Price == 20000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 4 -> Custom_Price == 20000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 5 -> Custom_Price == 25000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 5 -> Custom_Price == 25000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 6 -> Custom_Price == 30000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 6 -> Custom_Price == 30000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 7 -> Custom_Price == 35000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 7 -> Custom_Price == 35000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 8 -> Custom_Price == 40000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 8 -> Custom_Price == 40000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 9 -> Custom_Price == 45000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 9 -> Custom_Price == 45000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 10 -> Custom_Price == 50000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 10 -> Custom_Price == 50000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 11 -> Custom_Price == 54000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 11 -> Custom_Price == 54000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 12 -> Custom_Price == 58000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 12 -> Custom_Price == 58000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 13 -> Custom_Price == 62000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 13 -> Custom_Price == 62000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 14 -> Custom_Price == 66000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 14 -> Custom_Price == 66000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 15 -> Custom_Price == 70000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 15 -> Custom_Price == 70000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 16 -> Custom_Price == 74000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 16 -> Custom_Price == 74000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 17 -> Custom_Price == 78000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 17 -> Custom_Price == 78000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 18 -> Custom_Price == 82000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 18 -> Custom_Price == 82000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 19 -> Custom_Price == 86000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 19 -> Custom_Price == 86000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 20 -> Custom_Price == 90000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 20 -> Custom_Price == 90000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 21 -> Custom_Price == 93000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 21 -> Custom_Price == 93000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 22 -> Custom_Price == 96000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 22 -> Custom_Price == 96000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 23 -> Custom_Price == 99000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 23 -> Custom_Price == 99000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 24 -> Custom_Price == 102000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 24 -> Custom_Price == 102000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 25 -> Custom_Price == 105000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 25 -> Custom_Price == 105000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 26 -> Custom_Price == 108000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 26 -> Custom_Price == 108000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 27 -> Custom_Price == 111000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 27 -> Custom_Price == 111000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 28 -> Custom_Price == 114000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 28 -> Custom_Price == 114000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 29 -> Custom_Price == 117000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 29 -> Custom_Price == 117000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "Fixed"  && qty == 30 -> Custom_Price == 120000);
-
-  preference(UnitOfMeasure == "Each" && RevenueType == "One-Time" && qty == 30 -> Custom_Price == 120000);
-
+  message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
   preference(RevenueType == "Variable" -> Custom_Price == 0);
-
   rule(UnitOfMeasure != "Each" || RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
   rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Minimum_Commit_True_Up_Frequency");
 
-  rule(UnitOfMeasure != "% of Media", "hide", "attribute", "RevShare1");
+  rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Percentage_of_Media");
 
   rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Monthly_Minimum1");
 
-  preference(UnitOfMeasure != "% of Media" || RevenueType == "Variable" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
+  preference(UnitOfMeasure != "% of Media" || RevenueType == "Variable" -> Percentage_of_Media == 0 && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
 
   message(RevenueType == "Fixed" && Custom_Price == 0 && UnitOfMeasure == "Each", "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
-
+    
 }
-
-
 
 @(peelable = true)
 type AgentBuilderServices : LineItem {
@@ -6532,10 +6300,10 @@ type SignalHubEnhanced : LineItem {
 
     //CRM-43881
 
-    @(defaultValue = "% of Media %")
-    string RevShare1;
+    @(defaultValue = "0.00", peelable = true)
+    decimal(2) Percentage_of_Media;
 
- 	@(defaultValue = "Each", relatedAttributes = "RevShare1, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency")
+ 	@(defaultValue = "Each", relatedAttributes = "Percentage_of_Media, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency")
     string UnitOfMeasure = ["Each", "% of Media"];
     
     @(defaultValue = "0.00", peelable = true)
@@ -6597,7 +6365,7 @@ type SignalHubEnhanced : LineItem {
 
     rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Minimum_Commit_True_Up_Frequency");
 
-    rule(UnitOfMeasure != "% of Media", "hide", "attribute", "RevShare1");
+    rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Percentage_of_Media");
 
     rule(UnitOfMeasure != "% of Media", "hide", "attribute", "Monthly_Minimum1");
 
@@ -6617,7 +6385,7 @@ type SignalHubEnhanced : LineItem {
 
     preference(UnitOfMeasure != "% of Media" -> Annual_Media_Spend == "None");
 
-    preference(UnitOfMeasure != "% of Media" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
+    preference(UnitOfMeasure != "% of Media" -> Percentage_of_Media == 0 && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
 
 
 }

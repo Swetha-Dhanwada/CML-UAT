@@ -8802,410 +8802,8 @@
   "alias": false,
   "conditions": [
    {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 1 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 2 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 3 -> Custom_Price == 15000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 4 -> Custom_Price == 20000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 5 -> Custom_Price == 25000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 6 -> Custom_Price == 30000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 7 -> Custom_Price == 35000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 8 -> Custom_Price == 40000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 9 -> Custom_Price == 45000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 10 -> Custom_Price == 50000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 11 -> Custom_Price == 54000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 12 -> Custom_Price == 58000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 13 -> Custom_Price == 62000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 14 -> Custom_Price == 66000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 15 -> Custom_Price == 70000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 16 -> Custom_Price == 74000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 17 -> Custom_Price == 78000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 18 -> Custom_Price == 82000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 19 -> Custom_Price == 86000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 20 -> Custom_Price == 90000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 21 -> Custom_Price == 93000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 22 -> Custom_Price == 96000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 23 -> Custom_Price == 99000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 24 -> Custom_Price == 102000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 25 -> Custom_Price == 105000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 26 -> Custom_Price == 108000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 27 -> Custom_Price == 111000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 28 -> Custom_Price == 114000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 29 -> Custom_Price == 117000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && qty == 30 -> Custom_Price == 120000);"
-   },
-   {
-    "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"Each\" || RevenueType == \"Variable\", \"hide\", \"attribute\", \"Custom_Price\");"
-   },
-   {
-    "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"Minimum_Commit_True_Up_Frequency\");"
-   },
-   {
-    "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"RevShare1\");"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(RevenueType == \"Variable\" -> Custom_Price == 0);"
-   },
-   {
-    "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"Monthly_Minimum1\");"
-   },
-   {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0 && UnitOfMeasure == \"Each\", \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure != \"% of Media\" || RevenueType == \"Variable\" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == \"None\");"
-   },
-   {
-    "kind": "preference",
-    "code": "// preference(UnitOfMeasure != \"Each\" || RevenueType == \"Variable\" -> Custom_Price == 0);"
-   },
-   {
-    "kind": "rule",
-    "code": "//rule(RevenueType == \"Variable\" || UnitOfMeasure == \"% of Media\", \"hide\", \"attribute\", \"Custom_Price\");"
-   }
-  ],
-  "count": 39,
-  "category": "Conversion APIs"
- },
- {
-  "name": "ConversionsAPIPartnerIntegration",
-  "parent": "LineItem",
-  "annotation": "@(peelable = true)",
-  "alias": false,
-  "conditions": [
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 1 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 1 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 2 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 2 -> Custom_Price == 10000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 3 -> Custom_Price == 15000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 3 -> Custom_Price == 15000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 4 -> Custom_Price == 20000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 4 -> Custom_Price == 20000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 5 -> Custom_Price == 25000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 5 -> Custom_Price == 25000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 6 -> Custom_Price == 30000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 6 -> Custom_Price == 30000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 7 -> Custom_Price == 35000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 7 -> Custom_Price == 35000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 8 -> Custom_Price == 40000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 8 -> Custom_Price == 40000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 9 -> Custom_Price == 45000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 9 -> Custom_Price == 45000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 10 -> Custom_Price == 50000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 10 -> Custom_Price == 50000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 11 -> Custom_Price == 54000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 11 -> Custom_Price == 54000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 12 -> Custom_Price == 58000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 12 -> Custom_Price == 58000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 13 -> Custom_Price == 62000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 13 -> Custom_Price == 62000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 14 -> Custom_Price == 66000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 14 -> Custom_Price == 66000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 15 -> Custom_Price == 70000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 15 -> Custom_Price == 70000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 16 -> Custom_Price == 74000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 16 -> Custom_Price == 74000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 17 -> Custom_Price == 78000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 17 -> Custom_Price == 78000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 18 -> Custom_Price == 82000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 18 -> Custom_Price == 82000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 19 -> Custom_Price == 86000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 19 -> Custom_Price == 86000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 20 -> Custom_Price == 90000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 20 -> Custom_Price == 90000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 21 -> Custom_Price == 93000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 21 -> Custom_Price == 93000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 22 -> Custom_Price == 96000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 22 -> Custom_Price == 96000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 23 -> Custom_Price == 99000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 23 -> Custom_Price == 99000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 24 -> Custom_Price == 102000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 24 -> Custom_Price == 102000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 25 -> Custom_Price == 105000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 25 -> Custom_Price == 105000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 26 -> Custom_Price == 108000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 26 -> Custom_Price == 108000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 27 -> Custom_Price == 111000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 27 -> Custom_Price == 111000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 28 -> Custom_Price == 114000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 28 -> Custom_Price == 114000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 29 -> Custom_Price == 117000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 29 -> Custom_Price == 117000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"Fixed\" && qty == 30 -> Custom_Price == 120000);"
-   },
-   {
-    "kind": "preference",
-    "code": "preference(UnitOfMeasure == \"Each\" && RevenueType == \"One-Time\" && qty == 30 -> Custom_Price == 120000);"
+    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -9221,7 +8819,7 @@
    },
    {
     "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"RevShare1\");"
+    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"Percentage_of_Media\");"
    },
    {
     "kind": "rule",
@@ -9229,14 +8827,14 @@
    },
    {
     "kind": "preference",
-    "code": "preference(UnitOfMeasure != \"% of Media\" || RevenueType == \"Variable\" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == \"None\");"
+    "code": "preference(UnitOfMeasure != \"% of Media\" || RevenueType == \"Variable\" -> Percentage_of_Media == 0 && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == \"None\");"
    },
    {
     "kind": "message",
     "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0 && UnitOfMeasure == \"Each\", \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    }
   ],
-  "count": 67,
+  "count": 8,
   "category": "Conversion APIs"
  },
  {
@@ -9344,7 +8942,7 @@
    },
    {
     "kind": "rule",
-    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"RevShare1\");"
+    "code": "rule(UnitOfMeasure != \"% of Media\", \"hide\", \"attribute\", \"Percentage_of_Media\");"
    },
    {
     "kind": "rule",
@@ -9380,7 +8978,7 @@
    },
    {
     "kind": "preference",
-    "code": "preference(UnitOfMeasure != \"% of Media\" -> RevShare1 == '' && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == \"None\");"
+    "code": "preference(UnitOfMeasure != \"% of Media\" -> Percentage_of_Media == 0 && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == \"None\");"
    }
   ],
   "count": 11,
