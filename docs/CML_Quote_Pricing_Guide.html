@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LiveRamp Quote Pricing — CalcProcedureDefinition (CML)</title>
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --ink: #1c2430;
+    --muted: #5c6b7a;
+    --line: #e3e8ee;
+    --accent: #0b6e4f;
+    --accent-soft: #e7f6ef;
+    --rules: #1d4e89;
+    --rules-soft: #e8f1fb;
+    --lang: #5c3d8a;
+    --lang-soft: #f0eaf8;
+    --code-bg: #0f1720;
+    --code-ink: #e8eef5;
+    --warn: #8a5a00;
+    --warn-bg: #fff6e5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Calibri, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+  }
+  header {
+    background: #102033;
+    color: #fff;
+    padding: 28px 32px 22px;
+  }
+  header h1 { margin: 0 0 6px; font-size: 26px; font-weight: 650; letter-spacing: -0.02em; }
+  header p { margin: 0; color: #c5d0dc; max-width: 920px; }
+  .meta { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: #d7e2ec;
+  }
+  nav.tabs {
+    display: flex;
+    gap: 8px;
+    padding: 16px 32px 0;
+    background: #102033;
+    flex-wrap: wrap;
+  }
+  nav.tabs button {
+    border: 0;
+    background: transparent;
+    color: #b7c5d3;
+    font-size: 15px;
+    font-weight: 650;
+    padding: 12px 18px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] {
+    background: var(--bg);
+    color: var(--ink);
+  }
+  main { padding: 22px 32px 48px; max-width: 1100px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  h2 { font-size: 20px; margin: 0 0 10px; }
+  h3 { font-size: 16px; margin: 22px 0 8px; }
+  h4 { font-size: 14px; margin: 16px 0 6px; color: var(--muted); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .lede { font-size: 16px; }
+  .formula {
+    font-family: Consolas, "Courier New", monospace;
+    background: #f7faf8;
+    border-left: 4px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .panel[data-tab="rules"] .formula { border-left-color: var(--rules); background: #f6f9fc; }
+  .panel[data-tab="language"] .formula { border-left-color: var(--lang); background: #faf8fc; }
+  ol.steps, ul.compact { margin: 8px 0 0; padding-left: 20px; }
+  ol.steps li, ul.compact li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 13px; }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 14px 16px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  pre code { color: inherit; font-size: inherit; }
+  .note {
+    background: var(--warn-bg);
+    color: #5c4308;
+    border: 1px solid #f0dfb4;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    margin-top: 12px;
+  }
+  .note a { color: #5c4308; font-weight: 600; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 2px 8px;
+    margin-right: 6px;
+  }
+  .tag.live { background: var(--accent-soft); color: var(--accent); }
+  .tag.soft { background: #eef1f4; color: #44515e; }
+  .tag.warn { background: #fdecec; color: #8d2a2a; }
+  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; gap: 8px; align-items: stretch; margin-top: 12px; }
+  .flow .box {
+    background: var(--accent-soft);
+    border: 1px solid #c9eadb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  .panel[data-tab="rules"] .flow .box { background: var(--rules-soft); border-color: #c9dcf3; }
+  .panel[data-tab="language"] .flow .box { background: var(--lang-soft); border-color: #ddd0ee; }
+  .flow .arrow { align-self: center; color: var(--muted); font-weight: 700; }
+  .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+  .model-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: #fafbfc;
+  }
+  .model-card h3 { margin: 0 0 8px; font-size: 15px; }
+  .model-card.token { border-top: 3px solid var(--accent); }
+  .model-card.cpm { border-top: 3px solid var(--rules); }
+  .model-card.legacy { border-top: 3px solid #8a5a00; }
+  a.ext { color: var(--rules); text-decoration: none; font-weight: 600; }
+  a.ext:hover { text-decoration: underline; }
+  @media (max-width: 900px) {
+    header, nav.tabs, main { padding-left: 16px; padding-right: 16px; }
+    .flow { grid-template-columns: 1fr; }
+    .flow .arrow { transform: rotate(90deg); justify-self: center; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>LiveRamp quote pricing (CML)</h1>
+  <p>Salesforce <strong>Expression Set <span class="mono">LiveRampConstraints</span></strong> (CalcML / CML) for LiveRamp quote-to-cash: line-item validation, bundle and dependency rules, pricing-model defaults (Token, CPM, Legacy), and UI configure behavior. All rule counts and explorer data are derived from the canonical raw CML at <code>CML-UAT/docs/LiveRampConstraints.txt</code> (full path: <span class="mono">C:\Users\sdhanw\RCASalesforce\CML-UAT\docs\LiveRampConstraints.txt</span>). Narrative summary: <code>docs/CML/CML_MEMORY.md</code>; per-type conditions: <a class="ext" href="CML_Rule_Explorer.html" style="color:#9ec5e8">CML_Rule_Explorer.html</a> (regenerate from that <code>.txt</code> via <span class="mono">CML-UAT/scripts/cml-daily-refresh.js</span>).</p>
+  <div class="meta">
+    <span class="pill cml-meta-es">Expression set: LiveRampConstraints</span>
+    <span class="pill cml-meta-source">Source: LiveRampConstraints.txt (UAT1, refreshed 2026-10-05)</span>
+    <span class="pill cml-meta-stats">6,921 lines · 162 types · 2,012 conditions</span>
+    <span class="pill">Org alias: UAT1</span>
+  </div>
+</header>
+<nav class="tabs" role="tablist">
+  <button role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true">Overview</button>
+  <button role="tab" id="tab-rules" aria-controls="panel-rules" aria-selected="false">Business rules</button>
+  <button role="tab" id="tab-language" aria-controls="panel-language" aria-selected="false">CML language</button>
+</nav>
+<main>
+
+<section class="panel active" id="panel-overview" data-tab="overview" role="tabpanel" aria-labelledby="tab-overview">
+  <div class="card">
+    <h2>Canonical CML source</h2>
+    <p class="lede">Every statistic and explorer row in this doc traces to one file: the committed UAT1 ConstraintModel export <strong>LiveRampConstraints.txt</strong>. Edit or analyze rules there (or in org Setup), then run the CML-UAT refresh pipeline so HTML artifacts pick up the same bytes.</p>
+    <table>
+      <tbody>
+        <tr><th>Raw CML</th><td><span class="mono">CML-UAT/docs/LiveRampConstraints.txt</span></td></tr>
+        <tr><th>Absolute path (this machine)</th><td><span class="mono">C:\Users\sdhanw\RCASalesforce\CML-UAT\docs\LiveRampConstraints.txt</span></td></tr>
+        <tr><th>Parsed JSON</th><td><span class="mono">CML-UAT/docs/cml_data.json</span> via <span class="mono">scripts/cml-parse.js</span></td></tr>
+        <tr><th>Refresh</th><td><span class="mono">node CML-UAT/scripts/cml-daily-refresh.js</span> (pulls active version from UAT1 when changed)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h2>Functional overview</h2>
+    <p class="lede">On configure, the constraint engine evaluates this CML <em>before</em> pricing procedures and Apex in the same Product Configure Business API call. It validates SKUs, enforces bundle and cross-sell logic, applies UOM/revenue defaults from <span class="mono">Pricing_Type__c</span>, and surfaces messages or hard errors to the configurator UI.</p>
+    <div class="formula">Configure API → CML constraints → Pricing procedures → Apex triggers → response</div>
+    <div class="flow">
+      <div class="box"><strong>Quote header</strong><br><span class="mono">SalesTransaction</span><br>Pricing_Type__c, Quote_Type__c, overrides</div>
+      <div class="arrow">→</div>
+      <div class="box"><strong>CML engine</strong><br>Types, relations, require / constraint / message</div>
+      <div class="arrow">→</div>
+      <div class="box"><strong>Line items</strong><br><span class="mono">SalesTransactionItem</span><br>Bundle children, identity SKUs, services</div>
+      <div class="arrow">→</div>
+      <div class="box"><strong>Installed base</strong><br><span class="mono">Asset</span> relations for dependency checks</div>
+    </div>
+    <ol class="steps">
+      <li>User or integration adds or changes products on a quote; the configurator invokes CML with header context and PCM structure.</li>
+      <li>Rules keyed to Token vs CPM vs Legacy paths set UOM/revenue preferences and block invalid combinations (dual standalone + bundle inclusion, Publicis-only SKUs, service package counts on Net New, and similar).</li>
+      <li>Dependency <span class="mono">require</span> and informational <span class="mono">message</span> rules align: both must stay consistent when admins change a dependency.</li>
+      <li>Values computed only in pricing (e.g. net unit price) are <em>not</em> visible to CML in the same pass — use configure → price → map externals → configure again when a rule must react to priced fields.</li>
+    </ol>
+    <p class="note"><strong>Performance:</strong> Large CML (~7k+ lines) affects quote load time. Monitor after changes; consider split/archive if the file grows past ~8,000 lines.</p>
+  </div>
+
+  <div class="card">
+    <h2>Pricing models</h2>
+    <div class="model-grid">
+      <div class="model-card token">
+        <h3>Token</h3>
+        <ul class="compact">
+          <li>Usage-based; UOM <strong>LiveRamp Tokens</strong></li>
+          <li>Bundle-centric (<strong>LiveRamp Platform and Usage</strong>)</li>
+          <li>Revenue: Fixed or Revenue Share</li>
+          <li>Cannot sell the same product standalone <em>and</em> in the bundle on one quote</li>
+        </ul>
+      </div>
+      <div class="model-card cpm">
+        <h3>CPM</h3>
+        <ul class="compact">
+          <li>Cost-per-thousand impressions</li>
+          <li>Reach/frequency and impression-volume products</li>
+          <li>Default revenue: Fixed</li>
+          <li>Most lines: UOM = CPM</li>
+        </ul>
+      </div>
+      <div class="model-card legacy">
+        <h3>Legacy</h3>
+        <ul class="compact">
+          <li>Older agreements (often Clean Room)</li>
+          <li>More manual pricing and Premier Custom Services</li>
+          <li>Lower automation than Token/CPM paths</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Core bundle: LiveRamp Platform and Usage</h2>
+    <p>Parent product with <strong>35+</strong> child SKUs. Customers quote the bundle with children <em>or</em> children standalone — not both for the same product (Token). At least one child is required (CRM-44558).</p>
+    <table>
+      <tbody>
+        <tr><th>Default UOM</th><td>LiveRamp Tokens</td></tr>
+        <tr><th>Default revenue</th><td>Fixed</td></tr>
+        <tr><th>Token tiers</th><td>Tier 1 through Tier 12</td></tr>
+        <tr><th>Major children</th><td>Activation (variants), Measurement Enablement (variants), Analytics Environment, Cross Media Intelligence, Customer Profiles, Identity Engine, Real Time ID Service, Monetization Distribution, 25+ identity/API services</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Related Salesforce objects &amp; fields</h2>
+    <table>
+      <thead><tr><th>Object / area</th><th>Role in this CML</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mono">SalesTransaction</span></td><td>Quote header; pricing type, quote type, line counts, override flags</td></tr>
+        <tr><td><span class="mono">SalesTransactionItem</span></td><td>Line items; product relations and attributes under constraint types</td></tr>
+        <tr><td><span class="mono">Asset</span></td><td>Customer-owned products; asset relations satisfy dependencies when on record</td></tr>
+        <tr><td>Quote fields</td><td><span class="mono">Pricing_Type__c</span>, <span class="mono">Quote_Type__c</span>, <span class="mono">Quantity_Override__c</span>, <span class="mono">LineItemCount__c</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel" id="panel-rules" data-tab="rules" role="tabpanel" aria-labelledby="tab-rules" hidden>
+  <div class="card">
+    <h2>Key validation &amp; behavior rules</h2>
+    <table>
+      <thead><tr><th>#</th><th>Rule area</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Dual-inclusion prevention</td><td>Token pricing: product cannot appear standalone and as bundle component on the same quote</td></tr>
+        <tr><td>2</td><td>Product dependencies</td><td>Destinations → Activation; Connections → Clean Room (Consumer); Analytics Environment → Measurement Enablement; identity services → Activation or Measurement; owned <span class="mono">Asset</span> can satisfy dependency</td></tr>
+        <tr><td>3</td><td>Service package exclusivity</td><td>Net New: at most one of Standard / Premier / Premier Flex variants (CRM-41997)</td></tr>
+        <tr><td>4</td><td>Quantity auto-calculation</td><td>Included Connections by Clean Room monthly-records tier (1/2/3); Included Destinations by Activation tier (2–8) — several auto-qty rules disabled per CRM-43531</td></tr>
+        <tr><td>5</td><td>Publicis Funded</td><td>Clean Room Publicis Funded standalone-only; no mix with other products (CRM-40498)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Smart defaults by pricing model</h2>
+    <h3><span class="tag live">Token</span></h3>
+    <ul class="compact">
+      <li>Activation / variants: UOM Revenue Share, revenue Fixed</li>
+      <li>Identity / APIs: UOM Revenue Share, revenue Fixed</li>
+      <li>Inside bundle: UOM forced to Tokens</li>
+    </ul>
+    <h3><span class="tag soft">CPM</span></h3>
+    <ul class="compact">
+      <li>Most products: UOM CPM, revenue Fixed (activation and measurement variants included)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Product categories (200+ SKUs)</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Examples</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Activation</td><td>Activation, B2B, NPI, Healthcare, Reseller</td><td>Tiering: RUM 5M–300M+, Impressions, LiveRamp Units</td></tr>
+        <tr><td>Measurement</td><td>Measurement Enablement, B2B, Healthcare, NPI</td><td>Events, Tokens, CPM UOM</td></tr>
+        <tr><td>Clean Room</td><td>Consumer (20M–10B+ monthly records), Enhanced/Enterprise/Media Intel Owners</td><td>Publicis Funded standalone-only</td></tr>
+        <tr><td>Identity Services</td><td>100+ types (Device ID, hashed email, envelope APIs, Real Time ID, …)</td><td>Cloud-embedded and API variants</td></tr>
+        <tr><td>Conversion APIs</td><td>Meta, Amazon, Google, TikTok, LinkedIn, Pinterest, Snap, …</td><td>Often requires Authenticated Traffic Solution</td></tr>
+        <tr><td>Services</td><td>Standard, Premier (Flex/Enhanced/Strategic), Custom, Baseline Support</td><td>Standard Services: Net New limit = 1</td></tr>
+        <tr><td>Analytics &amp; Data</td><td>Analytics Environment, Cross Media Intelligence, Customer Profiles, Identity Engine, Monetization</td><td>Often require Measurement Enablement</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Audit a specific type or condition in <a href="CML_Rule_Explorer.html">CML_Rule_Explorer.html</a> (search, category filter, condition-kind chips). After any UAT1 CML change, refresh <code>LiveRampConstraints.txt</code> first (<span class="mono">node CML-UAT/scripts/cml-daily-refresh.js</span>), then copy updated explorer/memory artifacts into this repo if needed so counts stay aligned with the <code>.txt</code> source.</p>
+  </div>
+
+  <div class="card">
+    <h2>Technical scale &amp; limitations</h2>
+    <table>
+      <tbody>
+        <tr><th>Canonical file</th><td><span class="mono">CML-UAT/docs/LiveRampConstraints.txt</span></td></tr>
+        <tr><th>Total lines</th><td class="cml-stat-lines">6,921</td></tr>
+        <tr><th>Type blocks</th><td class="cml-stat-types">162</td></tr>
+        <tr><th>Conditions</th><td class="cml-stat-conditions">2,012 (message / require / preference / rule / constraint)</td></tr>
+        <tr><th>Asset relations</th><td>30+ for dependency checks</td></tr>
+      </tbody>
+    </table>
+    <h3><span class="tag warn">Known limitations</span></h3>
+    <ol class="compact">
+      <li>File size impacts configure/quote load performance</li>
+      <li>35+ nested bundle children — full regression on bundle changes</li>
+      <li>Overlapping Token and CPM contexts for some SKUs</li>
+      <li>Asset linking required for installed-base dependency logic</li>
+      <li>Partial implementations: rules commented pending CRM-43531, CRM-43551</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>CRM ticket references</h2>
+    <table>
+      <thead><tr><th>Ticket</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><td>CRM-41997</td><td>Services package count constraint (Net New max 1)</td></tr>
+        <tr><td>CRM-44420</td><td>Quantity Override flag for Included Destinations</td></tr>
+        <tr><td>CRM-40498</td><td>Publicis Funded SKU exclusivity</td></tr>
+        <tr><td>CRM-43531</td><td>Disabled Included Destinations auto-qty (most tiers)</td></tr>
+        <tr><td>CRM-41869</td><td>Clean Room Enhanced/Enterprise variants</td></tr>
+        <tr><td>CRM-44142</td><td>Cross Media Intelligence requires Custom Measurement Services</td></tr>
+        <tr><td>CRM-44166</td><td>Monetization Distribution in Activation API dependency</td></tr>
+        <tr><td>CRM-44558</td><td>Platform and Usage requires ≥1 child SKU</td></tr>
+        <tr><td>CRM-43551</td><td>Token tier UOM refinement (partial)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>For admins maintaining this CML</h2>
+    <ol class="steps">
+      <li><strong>Add a product:</strong> New type definition → relation on Quote type → validation rules.</li>
+      <li><strong>Change a dependency:</strong> Update matching <span class="mono">message</span> and <span class="mono">require</span> rules together.</li>
+      <li><strong>New pricing model path:</strong> Preference block + UI rules + revisit existing conditions.</li>
+      <li><strong>Test:</strong> Token, CPM, Legacy, bundle vs standalone, Net New vs amend/renew scenarios.</li>
+      <li><strong>Performance:</strong> Watch quote/configure duration after deploy; plan split if line count keeps growing.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="panel" id="panel-language" data-tab="language" role="tabpanel" aria-labelledby="tab-language" hidden>
+  <div class="card">
+    <h2>CML language reference (Salesforce core concepts)</h2>
+    <p class="lede">Condensed from the Revenue Lifecycle Management Developer Guide — Product Configurator / CML. This section describes the <em>language</em>, not LiveRamp-specific rules. Official docs: <span class="mono">cml_cml_core_concepts.htm</span> and <span class="mono">cml_core_concept_examples.htm</span> on developer.salesforce.com.</p>
+    <p>CML supports <span class="mono">//</span> single-line and <span class="mono">/* */</span> block comments.</p>
+    <div class="formula">Same-call limit: CML cannot read pricing- or Apex-computed values (e.g. NetUnitPrice) until a second configure pass after Pricing Business API</div>
+  </div>
+
+  <div class="card">
+    <h2>Global properties &amp; settings</h2>
+    <ul class="compact">
+      <li><span class="mono">define CONST value;</span> — global constant (numeric, string, regex). Example: <span class="mono">define VOLTAGE_REGEX "^([0-9]+)/([0-9]+)$";</span></li>
+      <li><span class="mono">property maxRelationSize = n;</span> — cap relation cardinality (default 9999; do not inflate without need)</li>
+      <li><span class="mono">property allowMissingRelations = "true";</span> — omit PCM relations not needed for constraints (mirroring every relation is not recommended)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Variables</h2>
+    <p>Domains: discrete lists, ranges (<span class="mono">int x = [1..9];</span>), or combined. Types: <span class="mono">boolean</span>, <span class="mono">date</span>, <span class="mono">double(n)</span> / <span class="mono">decimal(n)</span>, <span class="mono">int</span>, <span class="mono">string</span>, <span class="mono">string[]</span>. Use <span class="mono">int</span> for line quantity (not <span class="mono">decimal</span>).</p>
+    <p>Math: <span class="mono">+ - * / % ^</span>, <span class="mono">ceil()</span>. String helpers: <span class="mono">strlen</span>, <span class="mono">substr</span>, <span class="mono">strconcat</span>, <span class="mono">join</span>, <span class="mono">trim</span>, <span class="mono">strsplit</span>, <span class="mono">strcontain</span>, <span class="mono">strformat</span>, <span class="mono">regexpreplace</span>, <span class="mono">get(index, array)</span>, membership with <span class="mono">in</span>.</p>
+    <p>Annotations (examples): <span class="mono">@(configurable=false, defaultValue=0.00)</span>, <span class="mono">Peelable</span>, <span class="mono">tagName</span> (line context), <span class="mono">contextPath</span> on <span class="mono">extern</span> for header fields.</p>
+    <pre><code>@(contextPath="SalesTransaction.ShippingCountry") extern string ShippingCountry;
+extern int MAX_VALUE = 9999;  // needs defaultValue if unmapped</code></pre>
+  </div>
+
+  <div class="card">
+    <h2>Types &amp; relationships</h2>
+    <ul class="compact">
+      <li><span class="mono">type Child : Parent { ... }</span> — inheritance; variants not supported in constraint models</li>
+      <li>Bundle root must be in the model to constrain children; abstract bases need concrete products</li>
+      <li><span class="mono">virtual</span>, <span class="mono">groupBy</span>, <span class="mono">minInstanceQty</span> / <span class="mono">maxInstanceQty</span>, <span class="mono">split</span>, <span class="mono">sharingCount</span></li>
+      <li>Group types (PCM component groups): dot notation from root; <span class="mono">parent(attr, 1)</span> to reach past a group</li>
+      <li>Ramp: virtual container with <span class="mono">groupBy=SalesTransactionItemGroup</span>; groups do not support hide/disable/recommend action rules</li>
+      <li><span class="mono">relation name : Type[min..max]</span> — tightest cardinality needed for performance</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Constraints &amp; rules</h2>
+    <p>Variable status: <span class="mono">User</span> (manual), <span class="mono">Default</span>, <span class="mono">Engine</span>. Only <span class="mono">exclude()</span> may override <span class="mono">User</span>.</p>
+    <table>
+      <thead><tr><th>Construct</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mono">constraint(expr, "msg", …)</span></td><td>Hard rule; must resolve or error</td></tr>
+        <tr><td><span class="mono">message(expr, "msg", …, severity)</span></td><td>Info / Warning / Error feedback; Error blocks task (not TLE save)</td></tr>
+        <tr><td><span class="mono">preference(expr, "msg")</span></td><td>Soft nudge (Info only)</td></tr>
+        <tr><td><span class="mono">require(expr, relation[Type]{filters}==n, "msg")</span></td><td>Forces presence/qty when true</td></tr>
+        <tr><td><span class="mono">setdefault(…)</span></td><td>Like require but on condition change; use <span class="mono">constraint()</span> for unconditional hard revert</td></tr>
+        <tr><td><span class="mono">exclude(expr, relation[Type], "msg")</span></td><td>Removes leaf type; can override User</td></tr>
+        <tr><td><span class="mono">rule(…, "hide"/"disable", …)</span></td><td>UI hide/disable attribute, value, relation, or type</td></tr>
+        <tr><td><span class="mono">rule(…, "recommend", …)</span></td><td>Suggestion; needs Run Config Rules Flow</td></tr>
+        <tr><td><span class="mono">table(…)</span> / <span class="mono">SalesforceTable</span></td><td>Combination allow-list; object-backed rows need CRUD via Constraint Rules Engine Licenseless perm set</td></tr>
+      </tbody>
+    </table>
+    <h3>Proxy &amp; aggregation</h3>
+    <ul class="compact">
+      <li><span class="mono">cardinality(Type[, relation])</span> vs <span class="mono">count(expr)</span></li>
+      <li><span class="mono">parent(var[, level])</span> — ancestor values (read-only)</li>
+      <li><span class="mono">this.quantity</span> — instance qty (calc rules; prefer <span class="mono">cardinality()</span> for structure)</li>
+      <li><span class="mono">relation.sum(attr)</span>, <span class="mono">relation.count(expr)</span>, block aggregates with explicit domains</li>
+      <li>Assets: <span class="mono">@(sourceContextNode="Asset", closerelation=true) relation …</span> — read-only installed base</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Worked example (official doc pattern)</h2>
+    <p>Salesforce’s <strong>Generator Set</strong> example (<span class="mono">GeneratorSet</span>, <span class="mono">GeneralModel</span>, <span class="mono">Accessory</span>, surge load, <span class="mono">groupBy</span>, <span class="mono">sharingCount</span>, asset auto-add) is the end-to-end template for new bundle modeling. This org’s LiveRamp CML does not currently use <span class="mono">groupBy</span> in the Rule Explorer snapshot — use the official listing when adopting that pattern.</p>
+  </div>
+</section>
+
+</main>
+<script>
+(function () {
+  var tabs = document.querySelectorAll('[role="tab"]');
+  var panels = document.querySelectorAll('[role="tabpanel"]');
+  function select(id) {
+    tabs.forEach(function (tab) {
+      var on = tab.id === id;
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(function (panel) {
+      var on = panel.getAttribute('aria-labelledby') === id;
+      panel.hidden = !on;
+      panel.classList.toggle('active', on);
+    });
+  }
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () { select(tab.id); });
+  });
+})();
+</script>
+</body>
+</html>

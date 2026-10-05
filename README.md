@@ -8,6 +8,7 @@ Mirrors the UAT1 `LiveRampConstraints` CalcProcedureDefinition (CML) so it can b
 - `docs/cml_data.json` — parsed type/condition data extracted from the raw CML
 - `docs/CML_Rule_Explorer.html` — self-contained, filterable HTML explorer built from `cml_data.json`; open directly in a browser
 - `docs/CML_MEMORY.md` — human-readable summary of the business rules, pricing models, and known issues
+- `docs/CML_Quote_Pricing_Guide.html` — tabbed narrative doc (stats synced from `LiveRampConstraints.txt` on refresh); mirrored under `RCASalesforce/docs/CML/` when present
 - `docs/category_map.json` — product-type → category mapping used by the explorer's category filter
 
 ## Daily refresh
