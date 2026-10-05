@@ -31,6 +31,15 @@ const CML_DATA_JSON = path.join(DOCS_DIR, 'cml_data.json');
 const EXPLORER_HTML = path.join(DOCS_DIR, 'CML_Rule_Explorer.html');
 const CATEGORY_MAP_JSON = path.join(DOCS_DIR, 'category_map.json');
 const MEMORY_MD = path.join(DOCS_DIR, 'CML_MEMORY.md');
+const QUOTE_GUIDE_HTML = path.join(DOCS_DIR, 'CML_Quote_Pricing_Guide.html');
+const RCA_QUOTE_GUIDE_HTML = path.join(
+  REPO_ROOT,
+  '..',
+  'RCASalesforce',
+  'docs',
+  'CML',
+  'CML_Quote_Pricing_Guide.html'
+);
 
 const SF_BIN = process.platform === 'win32' ? 'sf.cmd' : 'sf';
 const GIT_BIN = process.platform === 'win32' ? 'git.exe' : 'git';
@@ -120,6 +129,41 @@ function updateMemoryStats(types, today, raw) {
   fs.writeFileSync(MEMORY_MD, md);
 }
 
+/** Keep narrative guide stats aligned with LiveRampConstraints.txt (same repo + RCA mirror). */
+function updateQuotePricingGuide(types, today, raw, htmlPath) {
+  if (!fs.existsSync(htmlPath)) return;
+  const totalConditions = types.reduce((s, t) => s + t.count, 0);
+  const lines = raw.split('\n').length;
+  let html = fs.readFileSync(htmlPath, 'utf8');
+
+  html = html.replace(
+    /<span class="pill cml-meta-source">.*?<\/span>/,
+    `<span class="pill cml-meta-source">Source: LiveRampConstraints.txt (UAT1, refreshed ${today})</span>`
+  );
+  html = html.replace(
+    /<span class="pill cml-meta-stats">.*?<\/span>/,
+    `<span class="pill cml-meta-stats">${lines.toLocaleString()} lines · ${types.length} types · ${totalConditions.toLocaleString()} conditions</span>`
+  );
+  html = html.replace(
+    /<td class="cml-stat-lines">[\d,]+<\/td>/,
+    `<td class="cml-stat-lines">${lines.toLocaleString()}</td>`
+  );
+  html = html.replace(
+    /<td class="cml-stat-types">\d+<\/td>/,
+    `<td class="cml-stat-types">${types.length}</td>`
+  );
+  html = html.replace(
+    /<td class="cml-stat-conditions">[\d,]+ \(message \/ require \/ preference \/ rule \/ constraint\)<\/td>/,
+    `<td class="cml-stat-conditions">${totalConditions.toLocaleString()} (message / require / preference / rule / constraint)</td>`
+  );
+  fs.writeFileSync(htmlPath, html);
+}
+
+function updateAllQuoteGuides(types, today, raw) {
+  updateQuotePricingGuide(types, today, raw, QUOTE_GUIDE_HTML);
+  updateQuotePricingGuide(types, today, raw, RCA_QUOTE_GUIDE_HTML);
+}
+
 // Summarizes what actually changed between the previous and new parsed type
 // lists, for a human-readable commit message (added/removed types and
 // per-type condition-count deltas).
@@ -176,6 +220,7 @@ function main() {
   fs.writeFileSync(CML_DATA_JSON, JSON.stringify(types, null, 1));
   updateExplorerHtml(types, today);
   updateMemoryStats(types, today, raw);
+  updateAllQuoteGuides(types, today, raw);
 
   const description = describeChanges(oldTypes, types);
   console.log(`Change detected: ${description}`);
