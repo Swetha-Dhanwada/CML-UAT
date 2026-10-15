@@ -6989,11 +6989,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -7041,11 +7041,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -7071,11 +7071,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -7221,11 +7221,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
+    "code": "// commented CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -7251,11 +7251,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for Marketplace Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -8891,7 +8891,7 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0 && UnitOfMeasure == \"Each\", \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0 && UnitOfMeasure == \"Each\", \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    }
   ],
   "count": 8,
@@ -8909,11 +8909,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -8935,11 +8935,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "preference",
@@ -9056,11 +9056,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "message",
@@ -9086,11 +9086,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "message",
@@ -9116,11 +9116,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "//message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "message",
@@ -9146,11 +9146,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "message",
@@ -9176,11 +9176,11 @@
    },
    {
     "kind": "message",
-    "code": "message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
+    "code": "// message(RevenueType == \"Fixed\" && Custom_Price == 0, \"Custom Price cannot be 0 if Revenue Type is 'Fixed'.\", \"error\");"
    },
    {
     "kind": "message",
-    "code": "message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
+    "code": "//CRM-44976 message(qty > 1, \"Quantity cannot be greater than 1 for this Product.\", \"error\");"
    },
    {
     "kind": "message",

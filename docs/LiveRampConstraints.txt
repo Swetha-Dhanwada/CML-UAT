@@ -5071,7 +5071,7 @@ type CustomPriceLineItem : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -5120,7 +5120,7 @@ type PartnerAppMarketplaceHealthcareExpertDetermination : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -5144,7 +5144,7 @@ type PartnerAppMarketplaceLookalikeModeling : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -5223,7 +5223,7 @@ type CustomSegmentMonetization : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); // commented CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -5247,7 +5247,7 @@ type SegmentCreation : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -6157,7 +6157,7 @@ type ConversionsAPIPartnerIntegration : LineItem {
 
   preference(UnitOfMeasure != "% of Media" || RevenueType == "Variable" -> Percentage_of_Media == 0 && Monthly_Minimum1 == 0 && Minimum_Commit_True_Up_Frequency == "None");
 
-  message(RevenueType == "Fixed" && Custom_Price == 0 && UnitOfMeasure == "Each", "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+  //message(RevenueType == "Fixed" && Custom_Price == 0 && UnitOfMeasure == "Each", "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
     
 }
 
@@ -6175,7 +6175,7 @@ type AgentBuilderServices : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6197,7 +6197,7 @@ type SellerDirect : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6419,7 +6419,7 @@ type ActivationforAddressableTVSubscription : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6443,7 +6443,7 @@ type ActivationforCTVSubscription : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6467,7 +6467,7 @@ type ActivationforDataDrivenLinearTVSubscription : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6491,7 +6491,7 @@ type DataMatchingforAddressableTVSubscription : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
@@ -6515,7 +6515,7 @@ type DataMatchingforCTVSubscription : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+   // message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
