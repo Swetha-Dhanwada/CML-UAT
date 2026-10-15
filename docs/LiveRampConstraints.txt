@@ -762,37 +762,52 @@ type Quote {
     require(liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_250M > 0, includedconnections[IncludedConnections] == 2);
 
     require(liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_500M > 0 || liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_1B > 0 || liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_2_5B > 0 || liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_5B > 0 || liverampcleanroomconsumer[LiveRampCleanRoomConsumer].LRCRC_10B > 0, includedconnections[IncludedConnections] == 3);
+    //CRM-44420
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3 &&  (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);
 
-    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);
 
-    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);
+     require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);
 
-    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);
 
-    require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);
+    require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);
 
-    require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);
+    require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8  && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);
 
-    require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);
 
-    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);
 
-    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);
 
-    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);
+   require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);
 
-    require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 2 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 2);
 
-    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 2, includeddestinations[IncludedDestinations] == 2);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 3 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);
 
-    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);
 
-    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 5 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 5);
 
-    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 5, includeddestinations[IncludedDestinations] == 5);
-
-    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);
-
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);
+    require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != "Renewal" || (Quote_Type__c == "Renewal" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);
+    //CRM-44420 End
     require(conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPITypeOnline > 0 || conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPIType_Both > 0, authenticatedtrafficsolution[AuthenticatedTrafficSolution] == 1);
 
     require(liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle] && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].analyticsenvironment[AnalyticsEnvironment] && customrecurringservices[Custom_Recurring_Services] == 0, customrecurringservices[Custom_Recurring_Services], "Analytics Environment requires Custom Recurring Services");

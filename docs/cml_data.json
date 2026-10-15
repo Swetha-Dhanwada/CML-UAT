@@ -204,67 +204,127 @@
    },
    {
     "kind": "require",
-    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);"
+    "code": "//CRM-44420 require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);"
    },
    {
     "kind": "require",
-    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);"
    },
    {
     "kind": "require",
-    "code": "require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);"
    },
    {
     "kind": "require",
-    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);"
+    "code": "require(activation[Activation].activation_UOM_RUM > 0 && activation[Activation].activation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);"
    },
    {
     "kind": "require",
-    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);"
+    "code": "require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8, includeddestinations[IncludedDestinations] == 8);"
+    "code": "require(b2bactivation[B2BActivation].b2bactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);"
    },
    {
     "kind": "require",
-    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 2, includeddestinations[IncludedDestinations] == 2);"
+    "code": "require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 3, includeddestinations[IncludedDestinations] == 3);"
+    "code": "require(healthcareactivation[HealthcareActivation].healthcareactivation_UOM_RUM > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);"
    },
    {
     "kind": "require",
-    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 4, includeddestinations[IncludedDestinations] == 4);"
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 5, includeddestinations[IncludedDestinations] == 5);"
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Basic > 0 && includeddestinations[IncludedDestinations] < 3 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);"
    },
    {
     "kind": "require",
-    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 6, includeddestinations[IncludedDestinations] == 6);"
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
    },
    {
     "kind": "require",
-    "code": "require(conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPITypeOnline > 0 || conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPIType_Both > 0, authenticatedtrafficsolution[AuthenticatedTrafficSolution] == 1);"
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Standard > 0 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);"
+   },
+   {
+    "kind": "require",
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Advanced > 0 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);"
+   },
+   {
+    "kind": "require",
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(reselleractivation[ResellerActivation].reselleractivation_UOM_RUM > 0 && reselleractivation[ResellerActivation].reselleractivation_Lvl_Omnichannel > 0 && includeddestinations[IncludedDestinations] < 8 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 8);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 100000 && includeddestinations[IncludedDestinations] < 2 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 2);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 200000 && npiactivation[NPIActivation].qty > 100000 && includeddestinations[IncludedDestinations] < 3 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 3);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 500000 && npiactivation[NPIActivation].qty > 200000 && includeddestinations[IncludedDestinations] < 4 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 4);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty <= 750000 && npiactivation[NPIActivation].qty > 500000 && includeddestinations[IncludedDestinations] < 5 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 5);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 1, includeddestinations[IncludedDestinations] == 1);"
+   },
+   {
+    "kind": "require",
+    "code": "require(npiactivation[NPIActivation].npiactivation_UOM_RUM > 0 && npiactivation[NPIActivation].qty > 750000 && includeddestinations[IncludedDestinations] < 6 && (Quote_Type__c != \"Renewal\" || (Quote_Type__c == \"Renewal\" && Quantity_Override__c == false)), includeddestinations[IncludedDestinations] == 6);"
+   },
+   {
+    "kind": "require",
+    "code": "//CRM-44420 End require(conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPITypeOnline > 0 || conversionsapiformeta[ConversionsAPIforMeta].conversionsapiformeta_ConversionAPIType_Both > 0, authenticatedtrafficsolution[AuthenticatedTrafficSolution] == 1);"
    },
    {
     "kind": "require",
@@ -583,7 +643,7 @@
     "code": "//CRM-44558 start message(Pricing_Type__c == \"Token\" && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].qty > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bactivation[B2BActivation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npiactivation[NPIActivation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcareactivation[HealthcareActivation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].reselleractivation[ResellerActivation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].passthroughactivation[PassthroughActivation] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationapi[ActivationAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationcloudembedded[ActivationCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].measurementenablement[measurementenablement] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npimeasurement[NPIMeasurement] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcaremeasurementenablement[HealthcareMeasurementEnablement] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bmeasurementenablement[B2BMeasurementEnablement] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].analyticsenvironment[AnalyticsEnvironment] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].crossmediaintelligence[CrossMediaIntelligence] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].customerprofilesfordatacollaboration[CustomerProfilesforDataCollaboration] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].liverampcleanroomconsumer[LiveRampCleanRoomConsumer] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].identityengine[IdentityEngine] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].transactionresolution[TransactionResolution] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].monetizationdistribution[MonetizationDistribution] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].realtimeidservice[RealTimeIDService] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].tokentopseudonymousidentityresolutioncloudembedded[TokentoPseudonymousIdentityResolutionCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].envelopedecryptionapi[EnvelopeDecryptionAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].envelopecreationapi[EnvelopeCreationAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntoknownidentityresolutionapi[KnowntoKnownIdentityResolutionAPI] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntoknownidentityresolutioncloudembedded[KnowntoKnownIdentityResolutionCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntoknownidentitytranslationcloudembedded[KnowntoKnownIdentityTranslationCloudEmbedded] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].enhancedlocalencoder[EnhancedLocalEncoder] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].enhancedmatchingforgooglecustomermatch[EnhancedMatchingforGoogleCustomerMatch] == 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].enhancedmatchingforgooglecustomermatchb2b[EnhancedMatchingforGoogleCustomerMatchB2B] == 0 , \"LiveRamp Platform and Usage requires at least one child SKU to be selected. Please configure a component product within the bundle.\" , \"error\");"
    }
   ],
-  "count": 142,
+  "count": 157,
   "category": "Core / Bundle"
  },
  {
