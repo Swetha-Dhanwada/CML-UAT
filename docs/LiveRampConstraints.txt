@@ -846,94 +846,94 @@ type Quote {
     //CRM-40498
 
     // Token only (Legacy unchanged): standalone rev-share-eligible platform components default to Revenue Share UoM
+    
+    //CRM-43551 //CRM-45010 added CPM condition 
 
-    //CRM-43551
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && liverampcleanroomdatasellerowner[LiveRampCleanRoomDataSellerOwner] > 0 -> liverampcleanroomdatasellerowner[LiveRampCleanRoomDataSellerOwner].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && liverampcleanroomdatasellerowner[LiveRampCleanRoomDataSellerOwner] > 0 -> liverampcleanroomdatasellerowner[LiveRampCleanRoomDataSellerOwner].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0 -> activation[Activation].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && activation[Activation] > 0 -> activation[Activation].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0 -> activation[Activation].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && activation[Activation] > 0 -> activation[Activation].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationapi[ActivationAPI] > 0 -> activationapi[ActivationAPI].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && activationapi[ActivationAPI] > 0 -> activationapi[ActivationAPI].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationapi[ActivationAPI] > 0 -> activationapi[ActivationAPI].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && activationapi[ActivationAPI] > 0 -> activationapi[ActivationAPI].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationcloudembedded[ActivationCloudEmbedded] > 0 -> activationcloudembedded[ActivationCloudEmbedded].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && activationcloudembedded[ActivationCloudEmbedded] > 0 -> activationcloudembedded[ActivationCloudEmbedded].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationcloudembedded[ActivationCloudEmbedded] > 0 -> activationcloudembedded[ActivationCloudEmbedded].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && activationcloudembedded[ActivationCloudEmbedded] > 0 -> activationcloudembedded[ActivationCloudEmbedded].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bactivation[B2BActivation] > 0 -> b2bactivation[B2BActivation].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && b2bactivation[B2BActivation] > 0 -> b2bactivation[B2BActivation].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bactivation[B2BActivation] > 0 -> b2bactivation[B2BActivation].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && b2bactivation[B2BActivation] > 0 -> b2bactivation[B2BActivation].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npiactivation[NPIActivation] > 0 -> npiactivation[NPIActivation].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && npiactivation[NPIActivation] > 0 -> npiactivation[NPIActivation].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npiactivation[NPIActivation] > 0 -> npiactivation[NPIActivation].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && npiactivation[NPIActivation] > 0 -> npiactivation[NPIActivation].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcareactivation[HealthcareActivation] > 0 -> healthcareactivation[HealthcareActivation].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && healthcareactivation[HealthcareActivation] > 0 -> healthcareactivation[HealthcareActivation].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcareactivation[HealthcareActivation] > 0 -> healthcareactivation[HealthcareActivation].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && healthcareactivation[HealthcareActivation] > 0 -> healthcareactivation[HealthcareActivation].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && reselleractivation[ResellerActivation] > 0 -> reselleractivation[ResellerActivation].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && reselleractivation[ResellerActivation] > 0 -> reselleractivation[ResellerActivation].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && reselleractivation[ResellerActivation] > 0 -> reselleractivation[ResellerActivation].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && reselleractivation[ResellerActivation] > 0 -> reselleractivation[ResellerActivation].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && monetizationdistribution[MonetizationDistribution] > 0 -> monetizationdistribution[MonetizationDistribution].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && monetizationdistribution[MonetizationDistribution] > 0 -> monetizationdistribution[MonetizationDistribution].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && monetizationdistribution[MonetizationDistribution] > 0 -> monetizationdistribution[MonetizationDistribution].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && monetizationdistribution[MonetizationDistribution] > 0 -> monetizationdistribution[MonetizationDistribution].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 -> deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 -> deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 -> deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 -> deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && enhancedlocalencoder[EnhancedLocalEncoder] > 0 -> enhancedlocalencoder[EnhancedLocalEncoder].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && enhancedlocalencoder[EnhancedLocalEncoder] > 0 -> enhancedlocalencoder[EnhancedLocalEncoder].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && enhancedlocalencoder[EnhancedLocalEncoder] > 0 -> enhancedlocalencoder[EnhancedLocalEncoder].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && enhancedlocalencoder[EnhancedLocalEncoder] > 0 -> enhancedlocalencoder[EnhancedLocalEncoder].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 -> knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 -> knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 -> knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 -> knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 -> knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 -> pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 -> pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 -> pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 -> pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 -> pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 -> pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 -> pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 -> pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 -> b2bmeasurementenablement[B2BMeasurementEnablement].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 -> b2bmeasurementenablement[B2BMeasurementEnablement].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 -> b2bmeasurementenablement[B2BMeasurementEnablement].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 -> b2bmeasurementenablement[B2BMeasurementEnablement].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && measurementenablement[measurementenablement] > 0 -> measurementenablement[measurementenablement].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && measurementenablement[measurementenablement] > 0 -> measurementenablement[measurementenablement].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && measurementenablement[measurementenablement] > 0 -> measurementenablement[measurementenablement].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && measurementenablement[measurementenablement] > 0 -> measurementenablement[measurementenablement].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 -> healthcaremeasurementenablement[HealthcareMeasurementEnablement].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 -> healthcaremeasurementenablement[HealthcareMeasurementEnablement].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 -> healthcaremeasurementenablement[HealthcareMeasurementEnablement].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 -> healthcaremeasurementenablement[HealthcareMeasurementEnablement].RevenueType == "Fixed");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npimeasurement[NPIMeasurement] > 0 -> npimeasurement[NPIMeasurement].UnitOfMeasure == "Revenue Share");
 
-    preference(Pricing_Type__c == "Token" && npimeasurement[NPIMeasurement] > 0 -> npimeasurement[NPIMeasurement].UnitOfMeasure == "Revenue Share");
+    preference((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npimeasurement[NPIMeasurement] > 0 -> npimeasurement[NPIMeasurement].RevenueType == "Fixed");
 
-    preference(Pricing_Type__c == "Token" && npimeasurement[NPIMeasurement] > 0 -> npimeasurement[NPIMeasurement].RevenueType == "Fixed");
+    rule((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "LiveRamp Units");
 
-    rule(Pricing_Type__c == "Token" && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "LiveRamp Units");
+    rule((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "Records Under Management");
 
-    rule(Pricing_Type__c == "Token" && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "Records Under Management");
+    rule((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "Impressions");
 
-    rule(Pricing_Type__c == "Token" && activation[Activation] > 0, "hide", "attribute", "UnitOfMeasure", "value", "Impressions");
-
-    message(Pricing_Type__c == 'Token' && activation[Activation].UnitOfMeasure != "Revenue Share", "For Activation Standalone Product,Unit of Measure should be Revenue Share.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation].UnitOfMeasure != "Revenue Share", "For Activation Standalone Product,Unit of Measure should be Revenue Share.", "error");
 
     /* rule(Pricing_Type__c == "Token" && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] == 0 && activation[Activation] > 0 , "hide", "attribute", "UnitOfMeasure", "value", "Records Under Management");
     rule(Pricing_Type__c == "Token" && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] == 0 && activation[Activation] > 0 ,"hide", "attribute", "UnitOfMeasure", "value", "LiveRamp Units");
@@ -942,46 +942,46 @@ type Quote {
     preference(Pricing_Type__c == "Token" && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] == 0 && activation[Activation] > 0  -> activation[Activation].UnitOfMeasure == "Revenue Share" );*/
     // Token quotes: a SKU cannot be present both standalone and as a component of LiveRamp Platform and Usage
 
-    message(Pricing_Type__c == "Token" && activation[Activation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] > 0, "Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activation[Activation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] > 0, "Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && activationapi[ActivationAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationapi[ActivationAPI] > 0, "Activation (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationapi[ActivationAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationapi[ActivationAPI] > 0, "Activation (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && activationcloudembedded[ActivationCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationcloudembedded[ActivationCloudEmbedded] > 0, "Activation (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && activationcloudembedded[ActivationCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activationcloudembedded[ActivationCloudEmbedded] > 0, "Activation (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && b2bactivation[B2BActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bactivation[B2BActivation] > 0, "B2B Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bactivation[B2BActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bactivation[B2BActivation] > 0, "B2B Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && npiactivation[NPIActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npiactivation[NPIActivation] > 0, "NPI Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npiactivation[NPIActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npiactivation[NPIActivation] > 0, "NPI Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && healthcareactivation[HealthcareActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcareactivation[HealthcareActivation] > 0, "Healthcare Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcareactivation[HealthcareActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcareactivation[HealthcareActivation] > 0, "Healthcare Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && reselleractivation[ResellerActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].reselleractivation[ResellerActivation] > 0, "Reseller Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && reselleractivation[ResellerActivation] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].reselleractivation[ResellerActivation] > 0, "Reseller Activation cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && monetizationdistribution[MonetizationDistribution] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].monetizationdistribution[MonetizationDistribution] > 0, "Monetization Distribution cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && monetizationdistribution[MonetizationDistribution] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].monetizationdistribution[MonetizationDistribution] > 0, "Monetization Distribution cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0, "Device ID Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].deviceidresolutioncloudembedded[DeviceIDResolutionCloudEmbedded] > 0, "Device ID Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && enhancedlocalencoder[EnhancedLocalEncoder] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].enhancedlocalencoder[EnhancedLocalEncoder] > 0, "Enhanced Local Encoder cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && enhancedlocalencoder[EnhancedLocalEncoder] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].enhancedlocalencoder[EnhancedLocalEncoder] > 0, "Enhanced Local Encoder cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0, "Hashed Email to Pseudonymous Identity Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].hashedemailtopseudonymousidentityresolutioncloudembedded[HashedEmailtoPseudonymousIdentityResolutionCloudEmbedded] > 0, "Hashed Email to Pseudonymous Identity Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0, "Known to Pseudonymous Identity Resolution (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutionapi[KnowntoPseudonymousIdentityResolutionAPI] > 0, "Known to Pseudonymous Identity Resolution (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0, "Known to Pseudonymous Identity Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].knowntopseudonymousidentityresolutioncloudembedded[KnowntoPseudonymousIdentityResolutionCloudEmbedded] > 0, "Known to Pseudonymous Identity Resolution (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0, "Pseudonymous Identity Translation (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationapi[PseudonymousIdentityTranslationAPI] > 0, "Pseudonymous Identity Translation (API) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0, "Pseudonymous Identity Translation (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].pseudonymousidentitytranslationcloudembedded[PseudonymousIdentityTranslationCloudEmbedded] > 0, "Pseudonymous Identity Translation (Cloud-Embedded) cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bmeasurementenablement[B2BMeasurementEnablement] > 0, "B2B Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && b2bmeasurementenablement[B2BMeasurementEnablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bmeasurementenablement[B2BMeasurementEnablement] > 0, "B2B Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && measurementenablement[measurementenablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].measurementenablement[measurementenablement] > 0, "Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && measurementenablement[measurementenablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].measurementenablement[measurementenablement] > 0, "Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0, "Healthcare Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].healthcaremeasurementenablement[HealthcareMeasurementEnablement] > 0, "Healthcare Measurement Enablement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
-    message(Pricing_Type__c == "Token" && npimeasurement[NPIMeasurement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npimeasurement[NPIMeasurement] > 0, "NPI Measurement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM") && npimeasurement[NPIMeasurement] > 0 && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].npimeasurement[NPIMeasurement] > 0, "NPI Measurement cannot be added both as a standalone SKU and as a component of LiveRamp Platform and Usage on the same quote. Please remove one of them.", "error");
 
     //CRM-44558 start
-    message(Pricing_Type__c == "Token"
+    message((Pricing_Type__c == "Token" || Pricing_Type__c == "CPM")
         && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].qty > 0
         && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].activation[Activation] == 0
         && liverampplatformandusage[LiveRamp_Platform_and_Usage_bundle].b2bactivation[B2BActivation] == 0
