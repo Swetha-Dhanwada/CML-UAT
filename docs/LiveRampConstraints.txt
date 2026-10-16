@@ -5098,7 +5098,7 @@ type ThreePDataSegments : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -5183,7 +5183,7 @@ type ThirdPartyDataSellerAPI : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for Marketplace Product.", "error");
 
@@ -6538,7 +6538,7 @@ type PConversionDataBuyer : LineItem {
 
     rule(RevenueType == "Variable", "hide", "attribute", "Custom_Price");
 
-    message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error");
+    //message(RevenueType == "Fixed" && Custom_Price == 0, "Custom Price cannot be 0 if Revenue Type is 'Fixed'.", "error"); //CRM-44976
 
     message(qty > 1, "Quantity cannot be greater than 1 for this Product.", "error");
 
