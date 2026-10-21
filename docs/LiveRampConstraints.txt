@@ -3381,7 +3381,7 @@ type ActivationAPI : LineItem {
     @(defaultValue = "None", peelable = true)
     string Minimum_Commit_True_Up_Frequency = ["Monthly", "Quarterly", "Annual", "None"];
 
-    @(relatedAttributes = "Rev_Share1, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency")
+    @(relatedAttributes = "Rev_Share1, Monthly_Minimum1, Minimum_Commit_True_Up_Frequency, Impressions, Cost_Tier")
     string UnitOfMeasure = ["Revenue Share", "Each", "Tokens", "Impressions", "None", "CPM"];
 
     string Cost_Tier = ["Tier 1: Bundled", "None", "Tier 2: Standard", "Tier 3: Advanced", "Tier 4: Embedded", "Tier 5: CDP Whitelabel"];
