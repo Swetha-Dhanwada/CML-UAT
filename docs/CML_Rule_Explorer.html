@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CML Rule Explorer</title>
+<title>CML Interactive Explorer - UAT1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
@@ -141,14 +141,14 @@ mark{background:var(--amber-soft);color:var(--ink);border-radius:3px;padding:0 2
 <header class="top">
   <div>
     <h1>CML Rule Explorer</h1>
-    <p>Browse the UAT1 Expression Set: validation messages, UI rules, defaults, and dependencies for each product type, with the original CML alongside a plain-English description.</p>
+    <p>Browse the UAT1 Expression Set: validation messages, UI rules, defaults, and dependencies for each type, with the original CML alongside a plain-English description.</p>
   </div>
   <div class="stats" id="stats"></div>
 </header>
 
 <div class="shell">
   <aside class="rail" id="rail" aria-label="Filters">
-    <input id="q" class="field" type="search" placeholder="Search products, attributes, rules, messages…" autocomplete="off">
+    <input id="q" class="field" type="search" placeholder="Search types, attributes, rules, messages…" autocomplete="off">
     <label class="check"><input id="deepSearch" type="checkbox" checked> Search inside rule and message text</label>
 
     <h2>Category</h2>
@@ -180,7 +180,7 @@ mark{background:var(--amber-soft);color:var(--ink);border-radius:3px;padding:0 2
       </select>
     </div>
     <div class="grid" id="grid"></div>
-    <div class="empty hidden" id="empty">No products match these filters.</div>
+    <div class="empty hidden" id="empty">No types match these filters.</div>
   </main>
 
   <aside class="detail" id="detail" aria-live="polite"></aside>
@@ -287,7 +287,7 @@ function renderList() {
     return {p, ...ev, errors: ev.visible.messages.filter(m => m.severity === "error").length};
   }).filter(r => r.matches).sort(sortFn);
 
-  $("count").innerHTML = `<b>${rows.length}</b> of ${DATA.length} products`;
+  $("count").innerHTML = `<b>${rows.length}</b> of ${DATA.length} types`;
   $("empty").classList.toggle("hidden", rows.length > 0);
   if (!rows.length) { $("grid").innerHTML = ""; return rows; }
 
@@ -335,7 +335,7 @@ function itemHTML(sec, it) {
 function renderDetail() {
   const el = $("detail");
   const p = DATA.find(x => x.id === state.sel);
-  if (!p) { el.innerHTML = `<div class="dbody muted">Select a product to see its rules.</div>`; return; }
+  if (!p) { el.innerHTML = `<div class="dbody muted">Select a type to see its rules.</div>`; return; }
   const ev = evaluate(p);
   const q = state.q.trim().toLowerCase();
   const tabs = SECTIONS.map(s => `<span class="dtab" aria-pressed="${state.secs.has(s.key)}">${s.label} ${ev.visible[s.key].length}/${p[s.key].length}</span>`).join("");
@@ -365,7 +365,7 @@ function renderDetail() {
 function renderStats() {
   const t = k => DATA.reduce((n,p)=>n+p[k].length,0);
   $("stats").innerHTML = [
-    ["Products", DATA.length], ["UI rules", t("rules")], ["Messages", t("messages")],
+    ["UI rules", t("rules")], ["Messages", t("messages")],
     ["Defaults", t("preferences")], ["Dependencies", t("dependencies")]
   ].map(([l,v]) => `<div class="stat"><b>${v}</b><span>${l}</span></div>`).join("");
 }
